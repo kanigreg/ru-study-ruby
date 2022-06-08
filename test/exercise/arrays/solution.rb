@@ -16,14 +16,14 @@ module Exercise
         retrun [] if array.empty?
 
         max = max(array)
-        array.map{ |item| item > 0 ? max : item }
+        array.map { |item| item.positive? ? max : item }
       end
 
       def search(array, query)
-        search_helper = ->(left, right) do
+        search_helper = lambda do |left, right|
           return -1 if left > right
 
-          middle = (left+right) / 2
+          middle = (left + right) / 2
           if array[middle] == query
             middle
           elsif query > array[middle]
