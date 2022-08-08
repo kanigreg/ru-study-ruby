@@ -6,7 +6,7 @@ module Exercise
       # film["genres"], film["year"], film["access_level"], film["country"]
       def rating(array)
         kinopoisk_ratings =
-          array.filter { |film| film['country'].split(',').length >= 2 unless film['country'].nil? }
+          array.filter { |film| film['country'].split(',').length >= 2 if film['country'].present? }
                .map { |film| film['rating_kinopoisk'].to_f }
                .filter(&:positive?)
         rating_sum = kinopoisk_ratings.reduce(:+)
