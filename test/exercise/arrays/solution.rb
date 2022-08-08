@@ -16,13 +16,14 @@ module Exercise
         array.map { |item| item.positive? ? max : item }
       end
 
-      def search(array, query, left=0, right=array.length-1)
+      def search(array, query, left = 0, right = array.length - 1)
         return -1 if left > right
 
         middle = (left + right) / 2
-        if array[middle] == query
-          middle
-        elsif query > array[middle]
+
+        return middle if array[middle] == query
+
+        if query > array[middle]
           search(array, query, middle + 1, right)
         else
           search(array, query, left, middle - 1)
