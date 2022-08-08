@@ -4,11 +4,8 @@ module Exercise
       def max(array)
         return nil if array.empty?
 
-        iter = array.each
-        max = iter.next
-        for i in iter
-          max = i if i > max
-        end
+        max = array.first
+        array.drop(1).each { |item| max = item if item > max }
         max
       end
 
@@ -19,20 +16,17 @@ module Exercise
         array.map { |item| item.positive? ? max : item }
       end
 
-      def search(array, query)
-        search_helper = lambda do |left, right|
-          return -1 if left > right
+      def search(array, query, left=0, right=array.length-1)
+        return -1 if left > right
 
-          middle = (left + right) / 2
-          if array[middle] == query
-            middle
-          elsif query > array[middle]
-            search_helper.call(middle + 1, right)
-          else
-            search_helper.call(left, middle - 1)
-          end
+        middle = (left + right) / 2
+        if array[middle] == query
+          middle
+        elsif query > array[middle]
+          search(array, query, middle + 1, right)
+        else
+          search(array, query, left, middle - 1)
         end
-        search_helper.call(0, array.length - 1)
       end
     end
   end
